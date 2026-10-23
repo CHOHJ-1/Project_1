@@ -127,3 +127,8 @@ python3 Tools/run_core_tests.py --dotnet-root /path/to/dotnet
 - 터치/마우스 입력 오류가 있다면 Active Input Handling을 Input Manager (Old) 또는 Both로 설정합니다.
 
 Editor 시작 처리 추가와 버전 핀 수정은 실제 6000.3.13f1 Editor 실행 검증을 대신하지 않습니다. Console 오류가 있다면 해당 오류를 기준으로 추가 진단해야 합니다.
+
+
+### `com.unity.modules.inputlegacy` 패키지 오류
+
+이전 배포본의 잘못된 의존성을 제거했습니다. 기존 폴더에서 직접 수정할 경우 Unity를 닫고 `Packages/manifest.json`의 `"com.unity.modules.inputlegacy": "1.0.0",` 한 줄을 삭제한 뒤 다시 여세요. Unity의 기존 `UnityEngine.Input` API 사용을 위해 이 이름의 패키지를 설치할 필요는 없습니다. Player Settings의 Active Input Handling은 Input Manager (Old) 또는 Both를 사용합니다.
