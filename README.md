@@ -5,8 +5,8 @@
 ## 열기
 
 1. Unity Hub에서 이 저장소 폴더를 프로젝트로 추가합니다.
-2. 기준 Editor는 **Unity 6000.0.62f1 (Unity 6 LTS)** 입니다. 현재 납품 장비의 OS는 미확정이며 빌드 기본값은 **Windows x64, 1920×1080**입니다. 최종 Editor 패치와 해상도는 장비 확인 후 고정하세요.
-3. `Assets/Museum/Scenes/MainScene.unity`를 엽니다.
+2. 기준 Editor는 **Unity 6000.3.13f1 (Unity 6.3 LTS)** 입니다. 현재 납품 장비의 OS는 미확정이며 빌드 기본값은 **Windows x64, 1920×1080**입니다. 최종 Editor 패치와 해상도는 장비 확인 후 고정하세요.
+3. 처음 열었을 때 수정하지 않은 기본 빈 씬이면 전시 씬을 자동으로 엽니다. 자동으로 열리지 않으면 **Museum → Open Main Scene**, 또는 Project 창에서 **Assets → Museum → Scenes → MainScene**을 더블클릭하세요. 기존에 저장한 씬이나 수정 중인 씬은 자동으로 교체하지 않습니다.
 4. Player Settings → Active Input Handling은 **Input Manager (Old)** 또는 **Both**로 설정합니다. 이 프로젝트는 표준 uGUI + StandaloneInputModule을 사용합니다.
 5. Scene/Game 뷰에는 편집용 샘플 이미지가 보입니다. 이 샘플은 실제 유물이 아닌 임시 도형이며, Play 시 제거됩니다. 실제 전시 데이터는 USB 또는 기존 PC 저장본에서 읽습니다.
 6. Play하면 기본 Editor Source Folder인 `USB-Example/MuseumContent`에서 샘플 6개를 읽습니다. 다른 테스트 폴더는 `ContentManager > UsbContentSync > Editor Source Folder`에서 바꾸세요. 실제 USB를 Editor에서 테스트할 때는 이 값을 비웁니다. 실제 빌드에서는 Editor 전용 경로를 사용하지 않습니다.
@@ -115,3 +115,15 @@ python3 Tools/run_core_tests.py --dotnet-root /path/to/dotnet
 4. USB의 추가·교체·삭제 및 분리 후 유지·앱 재시작을 확인합니다.
 5. 손상 PNG, 파일 쌍 누락, 복사 중 분리, 빈 폴더, 여러 USB 연결 시 기존 콘텐츠를 유지하는지 확인합니다.
 6. 납품 해상도·배율, 최대 콘텐츠, 장시간 반복 조작과 전원 재시작을 검증합니다.
+
+
+## 프로젝트를 열었는데 화면이 비어 있을 때
+
+- 이 프로젝트는 Unity **6000.3.13f1**을 기준으로 설정했습니다. 이전 ZIP의 6000.0 버전 안내만으로 현재 증상을 버전 호환성 문제라고 단정할 수는 없습니다.
+- **Museum → Open Main Scene**을 누르거나 `Assets/Museum/Scenes/MainScene.unity`를 더블클릭합니다. Build Settings에 씬을 등록하는 것만으로 Editor가 그 씬을 자동으로 여는 것은 아닙니다.
+- Hierarchy에 `Canvas`, `ContentManager`, `EventSystem`, `Main Camera`가 있는지 확인합니다. Game 탭에서 화면을 확인하고, Scene 탭에서는 Canvas를 선택하고 F로 프레임을 맞춥니다.
+- Museum 메뉴가 없거나 Missing Script가 보이면 Window → General → Console의 **첫 번째 빨간 오류**를 확인합니다. 패키지 다운로드·스크립트 컴파일이 실패하면 자동 씬 열기도 실행되지 않습니다.
+- Play에서 빈 콘텐츠가 표시되면 ContentManager의 Editor Source Folder가 `USB-Example/MuseumContent`인지 확인합니다. 기본 예시 파일 6쌍이 포함되어 있어야 합니다.
+- 터치/마우스 입력 오류가 있다면 Active Input Handling을 Input Manager (Old) 또는 Both로 설정합니다.
+
+Editor 시작 처리 추가와 버전 핀 수정은 실제 6000.3.13f1 Editor 실행 검증을 대신하지 않습니다. Console 오류가 있다면 해당 오류를 기준으로 추가 진단해야 합니다.
