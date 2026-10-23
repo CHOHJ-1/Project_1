@@ -137,3 +137,14 @@ Editor 메뉴와 버전 핀 수정은 실제 6000.3.13f1 Editor 실행 검증을
 ### `SetSystemInterested may only be called once` 메시지
 
 이전 버전의 `MuseumProjectStartup.OpenInFreshProject`에서 발생한 스택에 대응해, Editor 초기화 콜백과 자동 씬 열기를 제거했습니다. `Museum → Open Main Scene`은 사용자가 선택할 때만 동작하고, 같은 씬이 이미 열려 있으면 다시 열지 않습니다. 수정 후 Unity를 재시작하고 Console을 Clear한 다음 재발 여부를 확인하세요. 이 변경은 보고된 자동 열기 호출 경로를 제거하며, Unity 내부 메시지의 모든 발생 원인을 해결했다고 보장하지는 않습니다.
+
+
+### Play 시작·종료 시 Transform 등록 오류 수정
+
+배포 씬의 `ArtifactScrollView`에 CanvasRenderer와 EditableImage가 각각 두 개 등록된 결함을 수정했습니다. 두 번째 한 쌍을 원래 위치인 자식 `Viewport`로 이동했습니다. 그리드·USB·터치 코드는 바꾸지 않았습니다. 수정 씬을 적용한 뒤 Unity를 재시작하고 Console을 Clear하여 Play 시작·종료 시 메시지가 사라지는지 확인해야 합니다. 씬을 직접 편집한 경우 덮어쓰기 전에 해당 씬을 백업하세요.
+
+이 중복은 아래 정적 검사에서 실제로 실패한 뒤 수정 후 통과했습니다. 이 검사는 씬·Prefab의 Renderer 중복, 컴포넌트 공유·고립, GameObject 소유 관계, 동일 스크립트 중복을 검사합니다. 실제 Unity 실행 검증을 대신하지는 않습니다.
+
+```sh
+python3 Tools/validate_ui_components.py
+```
