@@ -1,0 +1,12 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+.vs/
+*.csproj
+*.sln
+.DS_Store
+[Bb]in/
+__pycache__/
